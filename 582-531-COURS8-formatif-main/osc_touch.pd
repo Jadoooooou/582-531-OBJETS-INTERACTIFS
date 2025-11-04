@@ -1,0 +1,15 @@
+#N canvas 1119 0 1445 1041 12;
+#X obj 93 312 netsend -u -b;
+#X msg 93 271 connect 127.0.0.1 8001, f 25;
+#X text 90 245 connecter par OSC à l'ordi;
+#X msg 21 78 devices;
+#X msg 100 78 close;
+#X msg 100 107 baud 115200 \, open 4;
+#X obj 21 138 comport;
+#X obj 20 180 pdchoco/slip_parse;
+#X connect 1 0 0 0;
+#X connect 3 0 6 0;
+#X connect 4 0 6 0;
+#X connect 5 0 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 0 0;

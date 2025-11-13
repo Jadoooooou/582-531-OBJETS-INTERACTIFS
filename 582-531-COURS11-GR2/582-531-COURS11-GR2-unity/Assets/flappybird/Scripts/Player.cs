@@ -3,6 +3,8 @@ using extOSC;
 
 public class Player : MonoBehaviour
 {
+    //////////////////////////////////////// OSC ////////////////////////////////////////
+
     // Recevoir OSC
     public extOSC.OSCReceiver oscReceiver;
     // Adapter les échelles de valeurs
@@ -10,6 +12,9 @@ public class Player : MonoBehaviour
     {
         return Mathf.Clamp(((value - inputMin) / (inputMax - inputMin) * (outputMax - outputMin) + outputMin), outputMin, outputMax);
     }
+
+    // Le code initalise l'état initial du bouton comme relâché
+    private int etatEnMemoire = 1; 
 
     void TraiterOscKey(OSCMessage message)
     {
@@ -28,7 +33,19 @@ public class Player : MonoBehaviour
 
         // Récupérer la valeur du Key Unit depuis le message OSC
         int value = message.Values[0].IntValue;   
+
+        int nouveauEtat = value;
+        if (etatEnMemoire != nouveauEtat) { // Le code compare le nouvel etat avec l'etat en mémoire
+            etatEnMemoire = nouveauEtat; // Le code met à jour l'état mémorisé
+            if ( nouveauEtat == 0  ) {
+                // METTRE ici le code pour lorsque le bouton est appuyé
+            } else {
+                // METTRE ici le code pour lorsque le bouton est relaché
+            }
+        }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////
 
     public Sprite[] sprites;
     public float strength = 5f;

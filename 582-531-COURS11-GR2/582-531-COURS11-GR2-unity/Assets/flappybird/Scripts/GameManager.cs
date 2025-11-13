@@ -5,8 +5,12 @@ using extOSC;
 [DefaultExecutionOrder(-1)]
 public class GameManager : MonoBehaviour
 {
+
+    //////////////////////////////////////// OSC ////////////////////////////////////////
     private int etatEnMemoire = 1;
     public extOSC.OSCReceiver oscReceiver;
+    public extOSC.OSCTransmitter oscTransmitter;
+
     public static float Proportion(float value, float inputMin, float inputMax, float outputMin, float outputMax)
     {
         return Mathf.Clamp(((value - inputMin) / (inputMax - inputMin) * (outputMax - outputMin) + outputMin), outputMin, outputMax);
@@ -82,6 +86,20 @@ public class GameManager : MonoBehaviour
 
     public void Stop()
     {
+        //////////////////////////////////////// OSC ////////////////////////////////////////
+        var oSCMessage = new OSCMessage("/pixel");  // CHANGER l'adresse /pixel pour l'adresse désirée
+
+  
+        // Dans cet exemple, trois arguments de type entiers (int) sont ajoutés au message
+        oSCMessage.AddValue( OSCValue.Int(255) ); // R
+        oSCMessage.AddValue( OSCValue.Int(0) ); // G
+        oSCMessage.AddValue( OSCValue.Int(0) ); // B
+
+        // Envoyer le message 
+        oscTransmitter.Send(oSCMessage); 
+
+        ////////////////////////////////////////////////////////////////////////////////////////
+
         //Time.timeScale = 0f;
         player.enabled = false;
         spawner.enabled = false;
@@ -97,6 +115,20 @@ public class GameManager : MonoBehaviour
 
     public void Play()
     {
+        //////////////////////////////////////// OSC ////////////////////////////////////////
+        var oSCMessage = new OSCMessage("/pixel");  // CHANGER l'adresse /pixel pour l'adresse désirée
+
+  
+        // Dans cet exemple, trois arguments de type entiers (int) sont ajoutés au message
+        oSCMessage.AddValue( OSCValue.Int(0) ); // R
+        oSCMessage.AddValue( OSCValue.Int(255) ); // G
+        oSCMessage.AddValue( OSCValue.Int(0) ); // B
+
+        // Envoyer le message 
+        oscTransmitter.Send(oSCMessage); 
+
+        ////////////////////////////////////////////////////////////////////////////////////////
+
         score = 0;
         scoreText.text = score.ToString();
 

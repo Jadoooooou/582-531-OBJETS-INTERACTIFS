@@ -22,9 +22,13 @@ unsigned long monChronoDepart ;
 void myOscMessageParser(MicroOscMessage & receivedOscMessage) { // receivedOscMessage est le message reçu
   // Ici, un if et receivedOscMessage.checkOscAddress() est utilisé pour traiter les différents messages
   if (receivedOscMessage.checkOscAddress("/pixel")) {  // MODIFIER /pixel pour l'adresse qui sera reçue
-       int premierArgument = receivedOscMessage.nextAsInt(); // Récupérer le premier argument du message en tant que int
+      int premierArgument = receivedOscMessage.nextAsInt(); // Récupérer le premier argument du message en tant que int
+      int deuxiemerArgument = receivedOscMessage.nextAsInt(); // Récupérer le deuxième argument du message en tant que int
+      int troisiemerArgument = receivedOscMessage.nextAsInt(); // Récupérer le troisième argument du message en tant que int
 
-       // UTILISER ici les arguments récupérés
+      // UTILISER ici les arguments récupérés
+      myPbHub.setPixelColor(KEY_CHANNEL_KEY, 0, premierArgument, deuxiemerArgument, troisiemerArgument);
+      
 
    // SI NÉCESSAIRE, ajouter d'autres if pour recevoir des messages avec d'autres adresses
    } else if (receivedOscMessage.checkOscAddress("/autre")) {  // MODIFIER /autre une autre adresse qui sera reçue
@@ -57,6 +61,9 @@ void setup() {
   Wire.begin();
   myPbHub.begin();
 
+  // TEMPS DE DÉPART
+  monChronoDepart = millis(); 
+
 }
 
 void loop() {
@@ -66,7 +73,7 @@ void loop() {
 
   if ( millis() - monChronoDepart >= 20 ) { 
     monChronoDepart = millis(); 
-    
+
     // oscslip key unit
     int press = myPbHub.digitalRead(KEY_CHANNEL_KEY);
     monOsc.sendInt("/key", press);

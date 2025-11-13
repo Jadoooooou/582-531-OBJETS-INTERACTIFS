@@ -39,6 +39,7 @@ public class Player : MonoBehaviour
             etatEnMemoire = nouveauEtat; // Le code met à jour l'état mémorisé
             if ( nouveauEtat == 0  ) {
                 // METTRE ici le code pour lorsque le bouton est appuyé
+                direction = Vector3.up * strength;
             } else {
                 // METTRE ici le code pour lorsque le bouton est relaché
             }

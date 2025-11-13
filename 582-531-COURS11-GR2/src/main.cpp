@@ -8,18 +8,12 @@ MicroOscSlip<128> monOsc(&Serial);
 M5_PbHub myPbHub;
 
 #define BROCHE_ATOM_PIXEL 27
-#define BROCHE_ATOM_ANGLE 32
 
 // channel du hub où il est utilisé
-#define KEY_CHANNEL_ANGLE 0
+#define KEY_CHANNEL_KEY 0
 
 // CRGB keyPixel;
 CRGB atomPixel;
-
-// Tof key
-#include <VL53L0X.h>
-VL53L0X  myTOF;
-
 
 
 void setup() {
@@ -45,20 +39,15 @@ void setup() {
 
   // PBHUB
   Wire.begin();
-  myTOF.init();
   myPbHub.begin();
 
 }
 
 void loop() {
 
-  // oscslip angle unit 
-  //int valueAngle = myPbHub.analogRead(KEY_CHANNEL_ANGLE);
-  //monOsc.sendInt("/angle", valueAngle);
+  // oscslip key unit
+  int press = myPbHub.digitalRead(KEY_CHANNEL_KEY);
+  monOsc.sendInt("/key", press);
+  delay(100);
 
-  // obtenir la mesure en millimètres
-  int mesure = myTOF.readRangeSingleMillimeters();
-  monOsc.sendInt("/mesure", mesure);
-
-  delay(20);
 }

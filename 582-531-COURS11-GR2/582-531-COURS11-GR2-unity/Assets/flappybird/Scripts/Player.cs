@@ -5,6 +5,8 @@ public class Player : MonoBehaviour
 {
     //////////////////////////////////////// OSC ////////////////////////////////////////
 
+    // Le code initalise l'état initial du bouton comme relâché
+    private int etatEnMemoire = 1; 
     // Recevoir OSC
     public extOSC.OSCReceiver oscReceiver;
     // Adapter les échelles de valeurs
@@ -12,9 +14,6 @@ public class Player : MonoBehaviour
     {
         return Mathf.Clamp(((value - inputMin) / (inputMax - inputMin) * (outputMax - outputMin) + outputMin), outputMin, outputMax);
     }
-
-    // Le code initalise l'état initial du bouton comme relâché
-    private int etatEnMemoire = 1; 
 
     void TraiterOscKey(OSCMessage message)
     {

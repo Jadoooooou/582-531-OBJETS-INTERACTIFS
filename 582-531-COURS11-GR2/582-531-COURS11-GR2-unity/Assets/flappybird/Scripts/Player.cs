@@ -40,7 +40,6 @@ public class Player : MonoBehaviour
                 // METTRE ici le code pour lorsque le bouton est appuyé
                 direction = Vector3.up * strength;
             } else {
-                // METTRE ici le code pour lorsque le bouton est relaché
             }
         }
     }
